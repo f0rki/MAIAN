@@ -76,12 +76,15 @@ def check_one_contract_on_suicide(contract_bytecode, contract_address, debug, re
 
         print('\n\n\033[91m[-] Suicidal vulnerability found! \033[0m\n\n    The following %d transaction(s) will trigger the contract to be killed:' % MyGlobals.no_function_calls )
 
-        for n in range(MyGlobals.no_function_calls):
-            print('    -Tx[%d] :' % (n+1), end='' ) 
-            for j in range(len(MyGlobals.function_calls[n+1]['input'] )):
-                if (j-8) % 64 == 0: print(' ',end='')
-                print('%s' % MyGlobals.function_calls[n+1]['input'][j], end='')
-            print('') 
+        # for n in range(MyGlobals.no_function_calls):
+        #     print('    -Tx[%d] :' % (n+1), end='' ) 
+        #     for j in range(len(MyGlobals.function_calls[n+1]['input'] )):
+        #         if (j-8) % 64 == 0: print(' ',end='')
+        #         print('%s' % MyGlobals.function_calls[n+1]['input'][j], end='')
+        #     print('') 
+        for n in sorted(MyGlobals.function_calls.keys()):
+            calldata = MyGlobals.function_calls[n]['input']
+            print(f'    -Tx[{n}] : {calldata}')
 
         if len(fhashes) > 0:
             print('\n    The transactions correspond to the functions:')

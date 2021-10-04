@@ -136,16 +136,21 @@ def get_function_calls( calldepth, debug ):
 
 
 
-
         MyGlobals.no_function_calls = calldepth
         MyGlobals.function_calls = {}
-        for n in range(10):
-            if n in function_inputs:
-                call_value = 0
-                for d in m: 
-                    if str(d) == ('CALLVALUE-'+str(n)):
-                        call_value = m[d].as_long()
-                MyGlobals.function_calls[n] = {'input':function_inputs[n],'value': call_value}
+        # for n in range(100):
+        #     if n in function_inputs:
+        #         call_value = 0
+        #         for d in m: 
+        #             if str(d) == ('CALLVALUE-'+str(n)):
+        #                 call_value = m[d].as_long()
+        #         MyGlobals.function_calls[n] = {'input':function_inputs[n],'value': call_value}
+        for n in function_inputs.keys():
+            call_value = 0
+            for d in m: 
+                if str(d) == ('CALLVALUE-'+str(n)):
+                    call_value = m[d].as_long()
+            MyGlobals.function_calls[n] = {'input':function_inputs[n],'value': call_value}
         
 
         if calldepth != len(MyGlobals.function_calls):
